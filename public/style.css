@@ -1,0 +1,14 @@
+h2{
+    color: navy;
+    font-family: "Bookman Old Style";
+    text-align: center;
+}
+
+.card-title{
+    color: red;
+    font-family: inherit;
+}
+.row{
+    color: navy;
+    background: lightsteelblue;
+}
