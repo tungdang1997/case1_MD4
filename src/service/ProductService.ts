@@ -5,14 +5,14 @@ class ProductService{
     constructor() {
     }
     getAll = async ()=>{
-        let products = await Product.find()
+        let products = await Product.find().populate('category')
         return products;
     }
     save = async (product)=>{
         return Product.create(product)
     }
     findById = async (id) => {
-        let product = await Product.findOne({_id: id});
+        let product = await Product.findOne({_id: id}).populate('category');
         return product;
     }
 
