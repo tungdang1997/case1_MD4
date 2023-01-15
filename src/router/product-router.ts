@@ -8,3 +8,5 @@ productRouter.get('/edit/:id',homeController.showFormEdit);
 productRouter.post('/edit/:id',homeController.updateProduct);
 productRouter.get('/delete/:id',homeController.showFormRemove);
 productRouter.get('/remove/:id',homeController.removeProduct);
+productRouter.get('/detail/:id',homeController.showFormDetail);
+productRouter.post('/search',homeController.search);

@@ -1,12 +1,15 @@
 import {Request, Response} from "express";
 import userService from "../service/UserService";
+import productService from "../service/ProductService";
+import UserService from "../service/UserService";
 
 
 class HomeController {
     private userService
+    private productService
 
     constructor() {
-        this.userService = userService
+        this.userService = UserService
     }
 
     showFormLogin = async (req: Request, res: Response) => {
@@ -14,17 +17,60 @@ class HomeController {
         res.render('user/login')
     }
 
-
-    login = async (req: Request, res: Response) => {
-        let user = await this.userService.checkUser(req.body);
-        if(user){
-            // @ts-ignore
-            req.session.User = user;
+    showFormRegister = async (req: Request, res: Response) => {
+        await this.userService.getAll();
+        res.render('user/register')
+    }
+    login = async (req, res: Response) => {
+        let user = await this.userService.checkUser(req.body.username);
+        req.session.User = user._id;
+        if(user.username === 'admin'){
             res.redirect(301, '/home')
-        } else {
-            res.redirect(301, '/users/login')
+
+        }
+        else {
+            res.redirect(301, '/homeUser')
         }
     }
+
+    register = async (req: Request, res: Response) => {
+        let user = req.body;
+        await userService.save(user);
+        res.redirect(301, "/users/login");
+    }
+
+    orderProduct = async (req, res: Response) => {
+        if (req.session.User){
+            console.log(req.session)
+            let user = await this.userService.findById(req.session.User);
+            let product = await productService.findById(req.params._id);
+            let cart = await this.userService.orderProduct(+req.body.quantity, req.params._id, req.session.User);
+            res.redirect(301, '/homeUser');
+        }
+
+    }
+
+    showFormCart = async (req, res: Response) => {
+        let cart = await userService.findCartByUser(req.session.User);
+        let sum = 0;
+
+        for (let i = 0; i < cart.length; i++) {
+            let products = await productService.findById(cart[i].product);
+            sum += (cart[i].quantity * products.price);
+        }
+        res.render('D:\\untitled\\MD4\\src\\views\\user\\cart.ejs', { cart: cart, sum: sum });
+    }
+
+    payOrder = async (req, res: Response) => {
+        if (req.session.User) {
+            await userService.changeStatusCart(req.session.User);
+            res.redirect(301, '/users/cart');
+        }
+        else {
+            res.redirect(301, '/users/login');
+        }
+    }
+
 
 }
 

@@ -21,24 +21,25 @@
 /// <reference types="mongoose/types/utility" />
 /// <reference types="mongoose/types/validation" />
 /// <reference types="mongoose/types/virtuals" />
-/// <reference types="mongoose" />
 /// <reference types="mongoose/types/inferschematype" />
-declare class ProductService {
-    constructor();
-    getAll: () => Promise<Omit<import("mongoose").Document<unknown, any, import("../model/product").IProduct> & import("../model/product").IProduct & {
-        _id: import("mongoose").Types.ObjectId;
-    }, never>[]>;
-    save: (product: any) => Promise<import("mongoose").Document<unknown, any, import("../model/product").IProduct> & import("../model/product").IProduct & {
-        _id: import("mongoose").Types.ObjectId;
-    }>;
-    findById: (id: any) => Promise<import("mongoose").Document<unknown, any, import("../model/product").IProduct> & import("../model/product").IProduct & {
-        _id: import("mongoose").Types.ObjectId;
-    }>;
-    findByName: (search: any) => Promise<(import("mongoose").Document<unknown, any, import("../model/product").IProduct> & import("../model/product").IProduct & {
-        _id: import("mongoose").Types.ObjectId;
-    })[]>;
-    private update;
-    private remove;
-}
-declare const _default: ProductService;
-export default _default;
+import { Schema } from "mongoose";
+declare const Order: import("mongoose").Model<{
+    quantity: number;
+    address: string;
+    phone: string;
+    orderDate: Date;
+    status: "Đang xử lý" | "Đang giao" | "Hoàn tất" | "Đã hủy";
+    products?: string;
+    note?: string;
+    customer?: string;
+}, {}, {}, {}, Schema<any, import("mongoose").Model<any, any, any, any, any>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, {
+    quantity: number;
+    address: string;
+    phone: string;
+    orderDate: Date;
+    status: "Đang xử lý" | "Đang giao" | "Hoàn tất" | "Đã hủy";
+    products?: string;
+    note?: string;
+    customer?: string;
+}>>;
+export { Order };

@@ -12,9 +12,23 @@ class ProductService{
         return Product.create(product)
     }
     findById = async (id) => {
-        let product = await Product.findOne({_id: id}).populate('category');
-        return product;
+        let products = await Product.findOne({_id: id}).populate('category');
+        if(!products){
+            return null;
+        }
+        return products;
     }
+
+    findByName = async (search)=> {
+        let products = await Product.find({name:{$regex:`(.*)${search.search}(.*)`}});
+        if(!products){
+            return null;
+        }
+        return products;
+    }
+
+
+
 
      private update = async (id, newProduct) => {
         let product = await Product.findOne({_id: id});

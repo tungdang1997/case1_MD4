@@ -2,6 +2,8 @@ import {Request, Response} from "express";
 import productService from "../service/ProductService";
 import categoryService from "../service/CategoryService";
 
+import ProductService from "../service/ProductService";
+
 
 class HomeController {
     private productService;
@@ -12,16 +14,40 @@ class HomeController {
         this.categoryService = categoryService
     }
 
-    showHome = async (req: Request, res: Response) => {
+    showHome = async (req, res: Response) => {
         // @ts-ignore
-        console.log(req.session.User)
+        req.session.User
         let products = await productService.getAll();
         res.render('home', {products: products})
     }
+
+    showHomeUser = async (req, res: Response) => {
+        // @ts-ignore
+        req.session.User
+        let products = await productService.getAll();
+        res.render('homeUser', {products: products})
+    }
+
+
+    showFormDetail = async (req: Request, res: Response) => {
+        let product = await productService.findById(req.params.id);
+        res.render('products/detail', { products: product });
+    }
+
+    search = async (req: Request, res: Response) => {
+        let search = req.body;
+        let products = await ProductService.findByName(search);
+        res.render('homeUser', {products: products})
+    }
+
+
     showFormCreate = async (req: Request, res: Response) => {
         let categories = await this.categoryService.getAll();
         res.render('products/create', {categories: categories});
     }
+
+
+
     create = async (req: Request, res: Response) => {
         if (req.files) {
             let image = req.files.image;
@@ -38,9 +64,11 @@ class HomeController {
         let id = req.params.id;
         let product = await this.productService.findById(id);
         let categories = await this.categoryService.getAll();
-        res.render('products/edit', {product: product, categories : categories});
+        res.render('products/edit', {products: product, categories : categories});
 
     }
+
+
 
     updateProduct = async (req: Request, res: Response) => {
         let id = req.params.id;

@@ -72,6 +72,7 @@
 
 <body class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
 
+<!--Nav-->
 <nav id="header" class="w-full z-30 top-0 py-1">
     <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 px-6 py-3">
 
@@ -88,9 +89,10 @@
             <nav>
                 <ul class="md:flex items-center justify-between text-base text-gray-700 pt-4 md:pt-0">
                     <li><a class="inline-block no-underline hover:text-black hover:underline py-2 px-4"
-                           href="/home">Shop</a></li>
+                           href="/homeUser">Shop</a></li>
                     <li><a class="inline-block no-underline hover:text-black hover:underline py-2 px-4"
-                           href="#">About</a></li>
+                           href="/users/pay-order">Cart</a></li>
+
                 </ul>
             </nav>
         </div>
@@ -108,7 +110,7 @@
 
         <div class="order-2 md:order-3 flex items-center" id="nav-content">
 
-            <a class="inline-block no-underline hover:text-black" href="#">
+            <a class="inline-block no-underline hover:text-black" href="/users/login">
                 <svg class="fill-current hover:text-black" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                      viewBox="0 0 24 24">
                     <circle fill="none" cx="12" cy="7" r="3"/>
@@ -194,6 +196,8 @@
                class="prev control-3 w-10 h-10 ml-2 md:ml-10 absolute cursor-pointer hidden text-3xl font-bold text-black hover:text-white rounded-full bg-white hover:bg-gray-900  leading-tight text-center z-10 inset-y-0 left-0 my-auto">‹</label>
         <label for="carousel-1"
                class="next control-3 w-10 h-10 mr-2 md:mr-10 absolute cursor-pointer hidden text-3xl font-bold text-black hover:text-white rounded-full bg-white hover:bg-gray-900  leading-tight text-center z-10 inset-y-0 right-0 my-auto">›</label>
+
+        <!-- Add additional indicators for each slide-->
         <ol class="carousel-indicators">
             <li class="inline-block mr-3">
                 <label for="carousel-1"
@@ -211,51 +215,76 @@
 
     </div>
 </div>
+
+<!--
+
+Alternatively if you want to just have a single hero
+
+<section class="w-full mx-auto bg-nordic-gray-light flex pt-12 md:pt-0 md:items-center bg-cover bg-right" style="max-width:1600px; height: 32rem; background-image: url('https://images.unsplash.com/photo-1422190441165-ec2956dc9ecc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1600&q=80');">
+
+<div class="container mx-auto">
+
+    <div class="flex flex-col w-full lg:w-1/2 justify-center items-start  px-6 tracking-wide">
+        <h1 class="text-black text-2xl my-4">Stripy Zig Zag Jigsaw Pillow and Duvet Set</h1>
+        <a class="text-xl inline-block no-underline border-b border-gray-600 leading-relaxed hover:text-black hover:border-black" href="#">products</a>
+
+    </div>
+
+  </div>
+
+</section>
+
+-->
+
 <section class="bg-white py-8">
 
-    <div class="container-fluid pt-5">
-        <div class="text-center mb-4">
-            <h2 class="section-title px-5"><span class="px-2">Contact For Any Queries</span></h2>
-        </div>
-        <div class="row px-xl-5">
-            <div class="col-lg-7 mb-5">
-                <div class="contact-form">
-                    <div id="success"></div>
-                    <form action="/products/edit/<%= products._id %>" method="post" enctype="multipart/form-data">
-                        <div class="control-group">
-                            <input type="text" class="form-control" name="name" placeholder="Name"
-                                   value="<%= products.name %>"
-                                   required="required" data-validation-required-message="Please enter your name"/>
-                            <p class="help-block text-danger"></p>
-                        </div>
-                        <div class="control-group">
-                            <input type="number" class="form-control" name="price" placeholder="Price"
-                                   value="<%= products.price %>"
-                                   required="required" data-validation-required-message="Please enter your name"/>
-                            <p class="help-block text-danger"></p>
-                        </div>
-                        <div class="control-group">
-                            <img src="<%= products.image %>" alt="">
-                            <input type="file" class="form-control" name="image" placeholder="Image"
-                                   required="required" data-validation-required-message="Please enter your name"/>
-                            <p class="help-block text-danger"></p>
-                        </div>
-                        <div class="control-group">
-                            <select name="category">
-                                <% categories.map(item=> { %>
-                                    <option value="<%= item._id %>"><%= item.name %></option>
-                                <% }) %>
-                            </select>
-                        </div>
-                        <div>
-                            <button class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton">Save</button>
-                        </div>
-                    </form>
+    <div class="container mx-auto flex items-center flex-wrap pt-4 pb-12">
+
+        <nav id="store" class="w-full z-30 top-0 px-6 py-1">
+            <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 px-2 py-3">
+
+                <a class="uppercase tracking-wide no-underline hover:no-underline font-bold text-gray-800 text-xl "
+                   href="#">
+                    Store
+                </a>
+
+                <div class="flex items-center" id="store-nav-content">
+
+                    <a class="pl-3 inline-block no-underline hover:text-black" href="#">
+                        <svg class="fill-current hover:text-black" xmlns="http://www.w3.org/2000/svg" width="24"
+                             height="24" viewBox="0 0 24 24">
+                            <path d="M7 11H17V13H7zM4 7H20V9H4zM10 15H14V17H10z"/>
+                        </svg>
+                    </a>
                 </div>
-
-
+                <form action="/products/search" method="post">
+                    <input type="text" name="search" style="border: 2px solid black"><button type="submit">search</button>
+                </form>
+            </div>
+        </nav>
+        <div class="container-fluid pt-5">
+            <div class="row px-xl-5 pb-3">
+                <% products.map(item =>  { %>
+                    <div class="col-lg-4 col-md-6 pb-1">
+                        <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
+                            <p class="text-right"><%= item.name %></p>
+                            <a href="" class="cat-img position-relative overflow-hidden mb-3">
+                                <img class="img-fluid" src="<%= item.image %>" alt="">
+                            </a>
+                            <h5 class="font-weight-semi-bold m-0"><%= item.price %> VND</h5>
+                            <h5 class="font-weight-semi-bold m-0">
+                                Loại: <%= (item.category) ? item.category.name : "none" %> </h5>
+                            <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                <a href="/products/detail/<%= item._id %>"><button type="button" class="btn btn-danger">Detail</button></a>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
             </div>
         </div>
+
+
+    </div>
 
 </section>
 

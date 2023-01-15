@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 import fileUpload from 'express-fileupload'
 import * as mongoose from "mongoose";
 import session from 'express-session';
+import { Cookie } from "express-session";
 
 const app = express();
 mongoose.set('strictQuery', true);

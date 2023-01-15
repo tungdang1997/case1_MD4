@@ -23,22 +23,10 @@
 /// <reference types="mongoose/types/virtuals" />
 /// <reference types="mongoose" />
 /// <reference types="mongoose/types/inferschematype" />
-declare class ProductService {
-    constructor();
-    getAll: () => Promise<Omit<import("mongoose").Document<unknown, any, import("../model/product").IProduct> & import("../model/product").IProduct & {
-        _id: import("mongoose").Types.ObjectId;
-    }, never>[]>;
-    save: (product: any) => Promise<import("mongoose").Document<unknown, any, import("../model/product").IProduct> & import("../model/product").IProduct & {
-        _id: import("mongoose").Types.ObjectId;
-    }>;
-    findById: (id: any) => Promise<import("mongoose").Document<unknown, any, import("../model/product").IProduct> & import("../model/product").IProduct & {
-        _id: import("mongoose").Types.ObjectId;
-    }>;
-    findByName: (search: any) => Promise<(import("mongoose").Document<unknown, any, import("../model/product").IProduct> & import("../model/product").IProduct & {
-        _id: import("mongoose").Types.ObjectId;
-    })[]>;
-    private update;
-    private remove;
+export interface ICart {
+    status?: string;
+    quantity?: number;
+    product?: string;
+    users?: string;
 }
-declare const _default: ProductService;
-export default _default;
+export declare const Cart: import("mongoose").Model<ICart, {}, {}, {}, any>;

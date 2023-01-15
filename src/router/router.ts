@@ -5,5 +5,6 @@ import {userRouter} from "./user-router";
 
 export const router = Router();
 router.get('/home', homeController.showHome)
+router.get('/homeUser', homeController.showHomeUser)
 router.use('/products', productRouter);
 router.use('/users', userRouter);

@@ -11,8 +11,18 @@ class ProductService {
             return product_1.Product.create(product);
         };
         this.findById = async (id) => {
-            let product = await product_1.Product.findOne({ _id: id }).populate('category');
-            return product;
+            let products = await product_1.Product.findOne({ _id: id }).populate('category');
+            if (!products) {
+                return null;
+            }
+            return products;
+        };
+        this.findByName = async (search) => {
+            let products = await product_1.Product.find({ name: { $regex: `(.*)${search.search}(.*)` } });
+            if (!products) {
+                return null;
+            }
+            return products;
         };
         this.update = async (id, newProduct) => {
             let product = await product_1.Product.findOne({ _id: id });

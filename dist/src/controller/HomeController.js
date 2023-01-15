@@ -5,12 +5,27 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const ProductService_1 = __importDefault(require("../service/ProductService"));
 const CategoryService_1 = __importDefault(require("../service/CategoryService"));
+const ProductService_2 = __importDefault(require("../service/ProductService"));
 class HomeController {
     constructor() {
         this.showHome = async (req, res) => {
-            console.log(req.session.User);
+            req.session.User;
             let products = await ProductService_1.default.getAll();
             res.render('home', { products: products });
+        };
+        this.showHomeUser = async (req, res) => {
+            req.session.User;
+            let products = await ProductService_1.default.getAll();
+            res.render('homeUser', { products: products });
+        };
+        this.showFormDetail = async (req, res) => {
+            let product = await ProductService_1.default.findById(req.params.id);
+            res.render('products/detail', { products: product });
+        };
+        this.search = async (req, res) => {
+            let search = req.body;
+            let products = await ProductService_2.default.findByName(search);
+            res.render('homeUser', { products: products });
         };
         this.showFormCreate = async (req, res) => {
             let categories = await this.categoryService.getAll();
@@ -32,7 +47,7 @@ class HomeController {
             let id = req.params.id;
             let product = await this.productService.findById(id);
             let categories = await this.categoryService.getAll();
-            res.render('products/edit', { product: product, categories: categories });
+            res.render('products/edit', { products: product, categories: categories });
         };
         this.updateProduct = async (req, res) => {
             let id = req.params.id;

@@ -1,11 +1,11 @@
 import {model, Schema} from "mongoose";
-import {ICategory} from "./category";
+
 
 export interface IProduct{
     name ?: string;
     price ?: number;
     image ?: string;
-    category ?: ICategory;
+    category ?: string;
 }
 
 const ProductSchema = new Schema <IProduct>({

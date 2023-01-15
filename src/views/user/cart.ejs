@@ -1,0 +1,132 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Giỏ hàng</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+    <link rel="shortcut icon" href="img/favicon1.ico">
+    <!-- Fontawesome css -->
+    <link rel="stylesheet" href="/css/user/font-awesome.min.css">
+    <!-- Ionicons css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/6.0.4/esm/ionicons.min.js" />
+    <!-- linearicons css -->
+    <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+    <!-- Nice select css -->
+    <link rel="stylesheet" href="/css/user/nice-select.css">
+    <!-- Jquery fancybox css -->
+    <link rel="stylesheet" href="/css/user/jquery.fancybox.css">
+    <!-- Jquery ui price slider css -->
+    <link rel="stylesheet" href="/css/user/jquery-ui.min.css">
+    <!-- Meanmenu css -->
+    <link rel="stylesheet" href="/css/user/meanmenu.min.css">
+    <!-- Nivo slider css -->
+    <link rel="stylesheet" href="/css/user/nivo-slider.css">
+    <!-- Owl carousel css -->
+    <link rel="stylesheet" href="/css/user/owl.carousel.min.css">
+    <!-- Bootstrap css -->
+    <link rel="stylesheet" href="/css/user/bootstrap.min.css">
+    <!-- Custom css -->
+    <link rel="stylesheet" href="/css/user/default.css">
+    <!-- Main css -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- Responsive css -->
+    <link rel="stylesheet" href="/css/user/responsive.css">
+
+    <!-- Modernizer js -->
+    <script src="/js/user/modernizr-3.5.0.min.js"></script>
+</head>
+
+<body>
+<!--[if lte IE 9]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+<![endif]-->
+
+<!-- Main Wrapper Start Here -->
+<div class="wrapper">
+    <!-- Main Header Area Start Here -->
+    <header>
+
+    </header>
+    <!-- Header Bottom End Here -->
+    <!-- Breadcrumb Start -->
+    <div class="breadcrumb-area mt-30">
+        <div class="container">
+            <div class="breadcrumb">
+                <ul class="d-flex align-items-center">
+                    <li><a href="/homeUser">Trang chủ</a></li>
+
+                    <li class="active"><a href="/user/cart">Giỏ hàng</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- Container End -->
+    </div>
+
+    <!-- Categories Start -->
+    <div class="container-fluid pt-5">
+        <form class="row px-xl-5 pb-3" action="/users/pay-order" method="post">
+            <% cart.map(item => {%>
+                <div class="col-lg-4 col-md-6 pb-1">
+                    <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
+                        <p class="text-right"><%= item.products.name %></p>
+                        <a href="" class="cat-img position-relative overflow-hidden mb-3">
+                            <img class="img-fluid" src="<%= item.products.image %>" alt="" style="width: 400px;">
+                        </a>
+                        <h5 class="font-weight-semi-bold m-0"><%= item.products.price %> $</h5>
+                        <h5 class="font-weight-semi-bold m-0">Quantity: <%= item.quantity %></h5>
+                        <h5 class="font-weight-semi-bold m-0">Money: <%= item.quantity * item.products.price %></h5>
+                        <h5 class="font-weight-semi-bold m-0">Status: <%= item.status %></h5>
+                    </div>
+                </div>
+            <%})%>
+            <center>
+                <h1>Total: <%= sum %> $</h1>
+            </center>
+            <center>
+                <button class="btn btn-primary ms-3 py-2 px-4" type="submit" id="sendMessageButton">Pay order</button>
+            </center>
+        </form>
+    </div>
+    <!-- Categories End -->
+</div>
+<!-- Footer Area Start Here -->
+<footer class="off-white-bg2 pt-95 bdr-top pt-sm-55">
+
+</footer>
+<!-- Footer Area End Here -->
+</div>
+<!-- Main Wrapper End Here -->
+
+<!-- jquery 3.2.1 -->
+<script src="/js/user/jquery-3.2.1.min.js"></script>
+<!-- Countdown js -->
+<script src="/js/user/jquery.countdown.min.js"></script>
+<!-- Mobile menu js -->
+<script src="/js/user/jquery.meanmenu.min.js"></script>
+<!-- ScrollUp js -->
+<script src="/js/user/jquery.scrollUp.js"></script>
+<!-- Nivo slider js -->
+<script src="/js/user/jquery.nivo.slider.js"></script>
+<!-- Fancybox js -->
+<script src="/js/user/jquery.fancybox.min.js"></script>
+<!-- Jquery nice select js -->
+<script src="/js/user/jquery.nice-select.min.js"></script>
+<!-- Jquery ui price slider js -->
+<script src="/js/user/jquery-ui.min.js"></script>
+<!-- Owl carousel -->
+<script src="/js/user/owl.carousel.min.js"></script>
+<!-- Bootstrap popper js -->
+<script src="/js/user/popper.min.js"></script>
+<!-- Bootstrap js -->
+<script src="/js/user/bootstrap.min.js"></script>
+<!-- Plugin js -->
+<script src="/js/user/plugins.js"></script>
+<!-- Main activaion js -->
+<script src="/js/user/main.js"></script>
+</body>
+
+</html>
