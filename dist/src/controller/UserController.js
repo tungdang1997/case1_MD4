@@ -35,8 +35,7 @@ class HomeController {
             if (req.session.User) {
                 console.log(req.session);
                 let user = await this.userService.findById(req.session.User);
-                let product = await ProductService_1.default.findById(req.params._id);
-                let cart = await this.userService.orderProduct(+req.body.quantity, req.params._id, req.session.User);
+                let cart = await this.userService.orderProduct(+req.body.quantity, req.params.id, req.session.User);
                 res.redirect(301, '/homeUser');
             }
         };

@@ -41,6 +41,7 @@ class UserService {
                     product: product,
                     users: user,
                 };
+                console.log(cart);
                 return await cart_1.Cart.create(cart);
             }
             else {
@@ -61,6 +62,7 @@ class UserService {
         };
         this.changeStatusCart = async (user) => {
             let cart = await cart_1.Cart.find({ users: user }).populate('product').populate('user');
+            console.log(cart);
             if (!cart) {
                 return null;
             }

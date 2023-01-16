@@ -72,13 +72,13 @@
             <% cart.map(item => {%>
                 <div class="col-lg-4 col-md-6 pb-1">
                     <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                        <p class="text-right"><%= item.products.name %></p>
+                        <p class="text-right"><%= item.product.name %></p>
                         <a href="" class="cat-img position-relative overflow-hidden mb-3">
-                            <img class="img-fluid" src="<%= item.products.image %>" alt="" style="width: 400px;">
+                            <img class="img-fluid" src="<%= item.product.image %>" alt="" style="width: 400px;">
                         </a>
-                        <h5 class="font-weight-semi-bold m-0"><%= item.products.price %> $</h5>
+                        <h5 class="font-weight-semi-bold m-0"><%= item.product.price %> $</h5>
                         <h5 class="font-weight-semi-bold m-0">Quantity: <%= item.quantity %></h5>
-                        <h5 class="font-weight-semi-bold m-0">Money: <%= item.quantity * item.products.price %></h5>
+                        <h5 class="font-weight-semi-bold m-0">Money: <%= item.quantity * item.product.price %></h5>
                         <h5 class="font-weight-semi-bold m-0">Status: <%= item.status %></h5>
                     </div>
                 </div>
