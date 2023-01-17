@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 declare class HomeController {
     private userService;
-    private productService;
     constructor();
     showFormLogin: (req: Request, res: Response) => Promise<void>;
     showFormRegister: (req: Request, res: Response) => Promise<void>;
@@ -10,6 +9,7 @@ declare class HomeController {
     orderProduct: (req: any, res: Response) => Promise<void>;
     showFormCart: (req: any, res: Response) => Promise<void>;
     payOrder: (req: any, res: Response) => Promise<void>;
+    deleteCart: (req: any, res: Response) => Promise<void>;
 }
 declare const _default: HomeController;
 export default _default;

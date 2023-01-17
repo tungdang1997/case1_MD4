@@ -5,11 +5,12 @@ import fileUpload from 'express-fileupload'
 import * as mongoose from "mongoose";
 import session from 'express-session';
 import { Cookie } from "express-session";
+import {AppDataSource} from "./src/data-source";
 
 const app = express();
 mongoose.set('strictQuery', true);
-mongoose.connect('mongodb://127.0.0.1:27017/case_01').then(()=>{
-    console.log('success')
+AppDataSource.initialize().then(()=>{
+    console.log('ok ok')
 })
 app.set('view engine', 'ejs');
 app.set('views','./src/views');

@@ -248,11 +248,11 @@ Alternatively if you want to just have a single hero
                             <a href="" class="cat-img position-relative overflow-hidden mb-3">
                                 <img class="img-fluid" src="<%= item.image%>" alt="">
                             </a>
-                            <h5 class="font-weight-semi-bold m-0"><%= item.price %> $</h5>
-                            <h5 class="font-weight-semi-bold m-0">Loại : <%= (item.category)? item.category.name : "none" %> </h5>
+                            <h5 class="font-weight-semi-bold m-0"><%= item.price %> VND</h5>
+                            <h5 class="font-weight-semi-bold m-0">Loại : <%= item.nameCategory%> </h5>
                             <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                <button type="button" class="btn btn-danger"><a  href="/products/edit/<%= item._id %>">Edit</a></button>
-                                <button type="button" class="btn btn-warning"> <a href="/products/delete/<%= item._id %>">Delete</a></button>
+                                <button type="button" class="btn btn-danger"><a  href="/products/edit/<%= item.id %>">Edit</a></button>
+                                <button type="button" class="btn btn-warning"> <a href="/products/delete/<%= item.id %>">Delete</a></button>
                             </div>
                         </div>
                     </div>

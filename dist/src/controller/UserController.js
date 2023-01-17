@@ -17,12 +17,16 @@ class HomeController {
             res.render('user/register');
         };
         this.login = async (req, res) => {
-            let user = await this.userService.checkUser(req.body.username);
-            req.session.User = user._id;
+            let user = await this.userService.checkUser(req.body);
+            if (user == null) {
+                res.redirect('login');
+            }
             if (user.username === 'admin') {
+                req.session.User = user.id;
                 res.redirect(301, '/home');
             }
             else {
+                req.session.User = user.id;
                 res.redirect(301, '/homeUser');
             }
         };
@@ -33,7 +37,6 @@ class HomeController {
         };
         this.orderProduct = async (req, res) => {
             if (req.session.User) {
-                console.log(req.session);
                 let user = await this.userService.findById(req.session.User);
                 let cart = await this.userService.orderProduct(+req.body.quantity, req.params.id, req.session.User);
                 res.redirect(301, '/homeUser');
@@ -51,6 +54,16 @@ class HomeController {
         this.payOrder = async (req, res) => {
             if (req.session.User) {
                 await UserService_1.default.changeStatusCart(req.session.User);
+                res.redirect(301, '/users/cart');
+            }
+            else {
+                res.redirect(301, '/users/login');
+            }
+        };
+        this.deleteCart = async (req, res) => {
+            if (req.session.User) {
+                let id = req.params.id;
+                await this.userService.removeCart(id);
                 res.redirect(301, '/users/cart');
             }
             else {

@@ -6,7 +6,6 @@ import UserService from "../service/UserService";
 
 class HomeController {
     private userService
-    private productService
 
     constructor() {
         this.userService = UserService
@@ -22,13 +21,16 @@ class HomeController {
         res.render('user/register')
     }
     login = async (req, res: Response) => {
-        let user = await this.userService.checkUser(req.body.username);
-        req.session.User = user._id;
+        let user = await this.userService.checkUser(req.body);
+        if(user == null) {
+            res.redirect('login')
+        }
         if(user.username === 'admin'){
+            req.session.User = user.id;
             res.redirect(301, '/home')
-
         }
         else {
+            req.session.User = user.id;
             res.redirect(301, '/homeUser')
         }
     }
@@ -41,7 +43,6 @@ class HomeController {
 
     orderProduct = async (req, res: Response) => {
         if (req.session.User){
-            console.log(req.session)
             let user = await this.userService.findById(req.session.User);
             let cart = await this.userService.orderProduct(+req.body.quantity, req.params.id, req.session.User);
             res.redirect(301, '/homeUser');
@@ -63,6 +64,17 @@ class HomeController {
     payOrder = async (req, res: Response) => {
         if (req.session.User) {
             await userService.changeStatusCart(req.session.User);
+            res.redirect(301, '/users/cart');
+        }
+        else {
+            res.redirect(301, '/users/login');
+        }
+    }
+
+    deleteCart = async (req, res: Response) => {
+        if (req.session.User) {
+            let id = req.params.id
+            await this.userService.removeCart(id);
             res.redirect(301, '/users/cart');
         }
         else {

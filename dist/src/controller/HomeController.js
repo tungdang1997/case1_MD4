@@ -9,12 +9,11 @@ const ProductService_2 = __importDefault(require("../service/ProductService"));
 class HomeController {
     constructor() {
         this.showHome = async (req, res) => {
-            req.session.User;
             let products = await ProductService_1.default.getAll();
+            console.log(products);
             res.render('home', { products: products });
         };
         this.showHomeUser = async (req, res) => {
-            req.session.User;
             let products = await ProductService_1.default.getAll();
             res.render('homeUser', { products: products });
         };
@@ -51,6 +50,7 @@ class HomeController {
         };
         this.updateProduct = async (req, res) => {
             let id = req.params.id;
+            console.log(id);
             if (req.files) {
                 let image = req.files.image;
                 if ('mv' in image) {

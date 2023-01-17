@@ -1,23 +1,16 @@
-import {Schema, model} from "mongoose";
-export interface ICart{
-    status?: string;
-    quantity?: number;
-    product?: string;
-    users?: string
+
+import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+
+@Entity()
+export class Cart {
+    @PrimaryGeneratedColumn()
+    id: number;
+    @Column()
+    status: string
+    @Column()
+    quantity: number
+    @Column()
+    product: number
+    @Column()
+    user: number
 }
-const cartSchema = new Schema({
-    product: {
-        type: String,
-        ref: "Product",
-    },
-    quantity: Number,
-
-    users: {
-        type: String,
-        ref: "User",
-    },
-    status: String
-
-});
-
-export const Cart = model<ICart>("Cart", cartSchema);

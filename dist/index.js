@@ -32,10 +32,11 @@ const body_parser_1 = __importDefault(require("body-parser"));
 const express_fileupload_1 = __importDefault(require("express-fileupload"));
 const mongoose = __importStar(require("mongoose"));
 const express_session_1 = __importDefault(require("express-session"));
+const data_source_1 = require("./src/data-source");
 const app = (0, express_1.default)();
 mongoose.set('strictQuery', true);
-mongoose.connect('mongodb://127.0.0.1:27017/case_01').then(() => {
-    console.log('success');
+data_source_1.AppDataSource.initialize().then(() => {
+    console.log('ok ok');
 });
 app.set('view engine', 'ejs');
 app.set('views', './src/views');

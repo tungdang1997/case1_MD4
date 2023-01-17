@@ -1,12 +1,12 @@
-import {model, Schema} from 'mongoose';
+import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
 
-export interface ICategory {
-    name?: string;
+@Entity()
+export class Category {
+    @PrimaryGeneratedColumn()
+    id: number;
+    @Column()
+    name: string
 }
 
-const CategorySchema = new Schema<ICategory>({
-    name: String
-});
 
-const Category = model<ICategory>('Category', CategorySchema);
-export {Category};
+

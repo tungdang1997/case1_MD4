@@ -2,77 +2,87 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const user_1 = require("../model/user");
 const cart_1 = require("../model/cart");
+const data_source_1 = require("../data-source");
 class UserService {
     constructor() {
         this.getAll = async () => {
-            let users = await user_1.User.find();
+            let users = await this.userRepository.findOneBy();
             return users;
         };
         this.save = async (users) => {
-            return user_1.User.create(users);
+            return this.userRepository.save(users);
         };
         this.findById = async (id) => {
-            let user = await user_1.User.findOne({ _id: id });
+            let user = await this.userRepository.findOneBy({ id: id });
             if (!user) {
                 return null;
             }
             return user;
         };
-        this.checkUser = async (username) => {
-            let userCheck = await user_1.User.findOne({ username: username });
+        this.checkUser = async (user) => {
+            console.log(user);
+            let userCheck = await this.userRepository.findOneBy({ username: user.username });
             if (!userCheck) {
                 return null;
             }
             return userCheck;
         };
         this.checkUsername = async (user) => {
-            let usernameCheck = await user_1.User.findOne({ username: user.username });
+            let usernameCheck = await this.userRepository.findOneBy({ username: user.username });
             if (!usernameCheck) {
                 return null;
             }
             return usernameCheck;
         };
         this.orderProduct = async (quantity, product, user) => {
-            let cartCheck = await cart_1.Cart.findOne({ users: user, product: product });
+            let cartCheck = await this.cartRepository.findOneBy({ user: user, product: product });
             if (!cartCheck) {
                 let cart = {
                     status: 'buying',
                     quantity: quantity,
                     product: product,
-                    users: user,
+                    user: user,
                 };
-                console.log(cart);
-                return await cart_1.Cart.create(cart);
+                return await this.cartRepository.save(cart);
             }
             else {
                 cartCheck.quantity += quantity;
-                return cart_1.Cart.updateOne({ _id: cartCheck._id }, { quantity: cartCheck.quantity });
+                return this.cartRepository.update({ idCart: cartCheck.id }, { quantity: cartCheck.quantity });
             }
         };
         this.findCartByUser = async (user) => {
-            let cart = await cart_1.Cart.find({ users: user }).populate('product').populate('users');
+            let cart = await this.cartRepository.find({ user: user });
             if (!cart) {
                 return null;
             }
             return cart;
         };
         this.getAllCart = async () => {
-            let cart = await cart_1.Cart.find().populate('product').populate('user');
+            let cart = await this.cartRepository.find();
             return cart;
         };
         this.changeStatusCart = async (user) => {
-            let cart = await cart_1.Cart.find({ users: user }).populate('product').populate('user');
+            let cart = await this.cartRepository.find({ user: user });
             console.log(cart);
             if (!cart) {
                 return null;
             }
             else {
                 for (let i = 0; i < cart.length; i++) {
-                    await cart_1.Cart.updateOne({ _id: cart[i]._id }, { status: 'bought' });
+                    await this.cartRepository.update({ idCart: cart[i].idCart }, { status: 'bought' });
                 }
                 return 'success';
             }
         };
+        this.removeCart = async (idCart) => {
+            let product = await this.cartRepository.findOneBy({ idCart: idCart });
+            if (!product) {
+                return null;
+            }
+            return this.cartRepository.delete({ idCart: idCart });
+        };
+        this.userRepository = data_source_1.AppDataSource.getRepository(user_1.User);
+        this.cartRepository = data_source_1.AppDataSource.getRepository(cart_1.Cart);
     }
 }
 exports.default = new UserService();

@@ -1,18 +1,28 @@
 import {Product} from "../model/product";
+import {AppDataSource} from "../data-source";
+import {Category} from "../model/category";
 
 
 class ProductService{
+    private productRepository
+
     constructor() {
+        this.productRepository = AppDataSource.getRepository(Product)
+
     }
     getAll = async ()=>{
-        let products = await Product.find().populate('category')
+        let sql = `select p.id, p.name, p.price, p.image, c.id as idCategory, c.name as nameCategory from product p join category c on p.category = c.id`
+
+        let products = await this.productRepository.query(sql)
+
         return products;
     }
     save = async (product)=>{
-        return Product.create(product)
+        return this.productRepository.save(product)
     }
+
     findById = async (id) => {
-        let products = await Product.findOne({_id: id}).populate('category');
+        let products = await this.productRepository.findOneBy({id: id})
         if(!products){
             return null;
         }
@@ -20,7 +30,8 @@ class ProductService{
     }
 
     findByName = async (search)=> {
-        let products = await Product.find({name:{$regex:`(.*)${search.search}(.*)`}});
+        let sql = `select p.id, p.name, p.price, p.image, c.id as idCategory, c.name as nameCategory from product p join category c on p.category = c.id where p.name like '%${search.search}%'`
+        let products = await this.productRepository.query(sql);
         if(!products){
             return null;
         }
@@ -30,20 +41,20 @@ class ProductService{
 
 
 
-     private update = async (id, newProduct) => {
-        let product = await Product.findOne({_id: id});
+     update = async (id, newProduct) => {
+        let product = await this.productRepository.findOneBy({id: id});
         if (!product) {
             return null;
         }
-        return Product.updateOne({_id: id}, newProduct);
+        return this.productRepository.update({id: id}, newProduct);
     }
 
-    private remove = async (id, newProduct) => {
-        let product = await Product.findOne({_id: id});
+    remove = async (id) => {
+        let product = await this.productRepository.findOneBy({id: id});
         if (!product) {
             return null;
         }
-        return Product.deleteOne({_id: id});
+        return this.productRepository.delete({id: id});
     }
 }
 

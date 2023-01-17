@@ -10,7 +10,7 @@ declare class HomeController {
     showFormCreate: (req: Request, res: Response) => Promise<void>;
     create: (req: Request, res: Response) => Promise<void>;
     showFormEdit: (req: Request, res: Response) => Promise<void>;
-    updateProduct: (req: Request, res: Response) => Promise<void>;
+    updateProduct: (req: any, res: Response) => Promise<void>;
     removeProduct: (req: Request, res: Response) => Promise<void>;
     showFormRemove: (req: Request, res: Response) => Promise<void>;
 }

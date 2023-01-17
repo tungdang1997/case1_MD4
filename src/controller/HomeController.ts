@@ -3,6 +3,7 @@ import productService from "../service/ProductService";
 import categoryService from "../service/CategoryService";
 
 import ProductService from "../service/ProductService";
+import CategoryService from "../service/CategoryService";
 
 
 class HomeController {
@@ -15,15 +16,14 @@ class HomeController {
     }
 
     showHome = async (req, res: Response) => {
-        // @ts-ignore
-        req.session.User
         let products = await productService.getAll();
+        console.log(products)
         res.render('home', {products: products})
     }
 
     showHomeUser = async (req, res: Response) => {
-        // @ts-ignore
-        req.session.User
+        // // @ts-ignore
+        // req.session.User
         let products = await productService.getAll();
         res.render('homeUser', {products: products})
     }
@@ -70,8 +70,9 @@ class HomeController {
 
 
 
-    updateProduct = async (req: Request, res: Response) => {
+    updateProduct = async (req, res: Response) => {
         let id = req.params.id;
+        console.log(id)
         if (req.files) {
             let image = req.files.image;
             if ('mv' in image) {
@@ -79,6 +80,7 @@ class HomeController {
                 let product = req.body;
                 product.image = '/storage/' + image.name;
                 await this.productService.update(id, product);
+                // console.log(await ProductService.update(id, product))
                 res.redirect(301, '/home');
             }
         }

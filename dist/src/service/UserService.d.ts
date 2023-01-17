@@ -1,28 +1,17 @@
 declare class UserService {
+    private userRepository;
+    private cartRepository;
     constructor();
-    getAll: () => Promise<(import("mongoose").Document<unknown, any, import("../model/user").IUser> & import("../model/user").IUser & {
-        _id: import("mongoose").Types.ObjectId;
-    })[]>;
-    save: (users: any) => Promise<import("mongoose").Document<unknown, any, import("../model/user").IUser> & import("../model/user").IUser & {
-        _id: import("mongoose").Types.ObjectId;
-    }>;
-    findById: (id: any) => Promise<import("mongoose").Document<unknown, any, import("../model/user").IUser> & import("../model/user").IUser & {
-        _id: import("mongoose").Types.ObjectId;
-    }>;
-    checkUser: (username: any) => Promise<import("mongoose").Document<unknown, any, import("../model/user").IUser> & import("../model/user").IUser & {
-        _id: import("mongoose").Types.ObjectId;
-    }>;
-    checkUsername: (user: any) => Promise<import("mongoose").Document<unknown, any, import("../model/user").IUser> & import("../model/user").IUser & {
-        _id: import("mongoose").Types.ObjectId;
-    }>;
-    private orderProduct;
-    findCartByUser: (user: any) => Promise<Omit<Omit<import("mongoose").Document<unknown, any, import("../model/cart").ICart> & import("../model/cart").ICart & {
-        _id: import("mongoose").Types.ObjectId;
-    }, never>, never>[]>;
-    getAllCart: () => Promise<Omit<Omit<import("mongoose").Document<unknown, any, import("../model/cart").ICart> & import("../model/cart").ICart & {
-        _id: import("mongoose").Types.ObjectId;
-    }, never>, never>[]>;
+    getAll: () => Promise<any>;
+    save: (users: any) => Promise<any>;
+    findById: (id: any) => Promise<any>;
+    checkUser: (user: any) => Promise<any>;
+    checkUsername: (user: any) => Promise<any>;
+    orderProduct: (quantity: any, product: any, user: any) => Promise<any>;
+    findCartByUser: (user: any) => Promise<any>;
+    getAllCart: () => Promise<any>;
     changeStatusCart: (user: any) => Promise<string>;
+    removeCart: (idCart: any) => Promise<any>;
 }
 declare const _default: UserService;
 export default _default;

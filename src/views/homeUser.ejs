@@ -273,9 +273,9 @@ Alternatively if you want to just have a single hero
                             </a>
                             <h5 class="font-weight-semi-bold m-0"><%= item.price %> VND</h5>
                             <h5 class="font-weight-semi-bold m-0">
-                                Loại: <%= (item.category) ? item.category.name : "none" %> </h5>
+                                Loại: <%= item.nameCategory %> </h5>
                             <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                <a href="/products/detail/<%= item._id %>"><button type="button" class="btn btn-danger">Detail</button></a>
+                                <a href="/products/detail/<%= item.id %>"><button type="button" class="btn btn-danger">Detail</button></a>
                             </div>
                         </div>
                     </div>
